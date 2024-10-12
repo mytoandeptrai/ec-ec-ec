@@ -4,6 +4,8 @@ import "./App-test.css";
 import { useState, useEffect } from "react";
 import HelloWord from "./components/HelloWord";
 import TodoList from "./components/TodoList";
+import SignInWithState from "./components/SignInWithState";
+import SignInWithFormik from "./components/SignInWithFormik";
 
 function App() {
    const [example, setExample] = useState("hello word!");
@@ -53,6 +55,10 @@ function App() {
 
    return (
       <div>
+         <div style={{ display: "flex", gap: "10px" }}>
+            <SignInWithState />
+            <SignInWithFormik />
+         </div>
          <TodoList />
          {/* {isFlag && <p>{example}</p>}
 
