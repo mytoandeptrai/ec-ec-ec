@@ -6,6 +6,7 @@ import HelloWord from "./components/HelloWord";
 import TodoList from "./components/TodoList";
 import SignInWithState from "./components/SignInWithState";
 import SignInWithFormik from "./components/SignInWithFormik";
+import Counter from "./components/Counter";
 
 function App() {
    const [example, setExample] = useState("hello word!");
@@ -55,10 +56,11 @@ function App() {
 
    return (
       <div>
-         <div style={{ display: "flex", gap: "10px" }}>
+         <Counter />
+         {/* <div style={{ display: "flex", gap: "10px" }}>
             <SignInWithState />
             <SignInWithFormik />
-         </div>
+         </div> */}
          <TodoList />
          {/* {isFlag && <p>{example}</p>}
 

@@ -4,14 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import TodoProvider from "./contexts/TodoProvider";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const root = ReactDOM.createRoot(
    document.getElementById("root") as HTMLElement
 );
 root.render(
-   <TodoProvider>
-      <App />
-   </TodoProvider>
+   <Provider store={store}>
+      <TodoProvider>
+         <App />
+      </TodoProvider>
+   </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

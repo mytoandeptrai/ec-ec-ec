@@ -1,6 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { axiosInstance } from "../api/axiosClient";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { setTodo, setTodoLoading } from "../store/todo/todo.action";
+import { SET_TODO, SET_TODO_LOADING } from "../store/todo/todo.type";
 
 interface ITodoProvider {
    children: React.ReactNode;
@@ -36,50 +40,83 @@ export const TodoContext = createContext<ITodoContext>({
 const TodoProvider = (props: ITodoProvider) => {
    const { children } = props;
 
-   const [todoList, setTodoList] = useState<ITodo[]>([]);
-   const [isLoading, setIsLoading] = useState(false);
-   const [page, setPage] = useState(1);
-   const [limit, setLimit] = useState(10);
-   const [title, setTitle] = useState("");
+   // const [todoList, setTodoList] = useState<ITodo[]>([]);
+   // const [isLoading, setIsLoading] = useState(false);
+   // const [page, setPage] = useState(1);
+   // const [limit, setLimit] = useState(10);
+   // const [title, setTitle] = useState("");
+
+   /** Cách 1: Lấy từng field trong reducer */
+   // const page = useSelector((state: RootState) => {
+   //    return state.todoState.page;
+   // });
+   // const limit = useSelector((state: RootState) => {
+   //    return state.todoState.limit;
+   // });
+   // const title = useSelector((state: RootState) => {
+   //    return state.todoState.title;
+   // });
+
+   /** Cách 2: Lấy reducer và sử dụng destructuring */
+   const todoState = useSelector((state: RootState) => {
+      return state.todoState;
+   });
+
+   const { title, limit, page } = todoState;
+
+   const dispatch = useDispatch();
 
    useEffect(() => {
       /** Mounting */
       const fetchApi = async () => {
          try {
-            setIsLoading(true);
+            /** Cách 2 loading */
+            const objectLoading = {
+               type: SET_TODO_LOADING,
+               payload: true,
+            };
+            dispatch(objectLoading);
 
             const url = title
                ? `/todos?title=${title}`
                : `/todos?_page=${page}&_limit=${limit}`;
 
             const response: any = await axiosInstance.get(url);
-            setTodoList(response);
-            setIsLoading(false);
+
+            /** Cách 1 */
+            // dispatch(setTodo(response));
+
+            /** Cách 2 */
+            const object = {
+               type: SET_TODO,
+               payload: response,
+            };
+            dispatch(object);
+            /** ================= */
+
+            /** Cách 1 loading */
+            dispatch(setTodoLoading(false));
          } catch (error) {
-            console.log("🚀 ~ fetchApi ~ error:", error);
-            setIsLoading(false);
+            dispatch(setTodo([]));
+            /** Cách 1 loading */
+            dispatch(setTodoLoading(false));
          }
       };
+
       fetchApi();
-   }, [page, limit, title]);
+   }, [page, limit, title, dispatch]);
 
-   const onPageChange = (newPage: number) => {
-      setPage(newPage);
-   };
+   const onPageChange = (newPage: number) => {};
 
-   const onLimitChange = (newLimit: number) => {
-      setLimit(newLimit);
-   };
+   const onLimitChange = (newLimit: number) => {};
 
-   const onGetDataFromChild = (data: string) => {
-      setTitle(data);
-   };
+   const onGetDataFromChild = (data: string) => {};
 
    const value = {
-      todoList,
-      isLoading,
-      page,
-      limit,
+      todoList: [],
+      isLoading: false,
+      page: 1,
+      limit: 10,
       onPageChange,
       onLimitChange,
       onGetDataFromChild,

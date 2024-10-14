@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
 import { TodoContext } from "../contexts/TodoProvider";
+import { useDispatch } from "react-redux";
+import { SET_TODO_TITLE } from "../store/todo/todo.type";
 
 const TodoForm = () => {
-   const todoContext = useContext(TodoContext);
-   const { onGetDataFromChild } = todoContext;
+   // const todoContext = useContext(TodoContext);
+   // const { onGetDataFromChild } = todoContext;
+   const dispatch = useDispatch();
    const [inputValue, setInputValue] = useState("");
 
    const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +15,14 @@ const TodoForm = () => {
 
    const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
       e.preventDefault();
-      onGetDataFromChild(inputValue);
+      // onGetDataFromChild(inputValue);
+
+      const object = {
+         type: SET_TODO_TITLE,
+         payload: inputValue,
+      };
+
+      dispatch(object);
    };
 
    return (
