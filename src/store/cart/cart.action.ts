@@ -1,4 +1,10 @@
-import { ADD_TO_CART, CHANGE_STATUS, REMOVE_FROM_CART } from "./cart.type";
+import {
+   ADD_TO_CART,
+   CHANGE_STATUS,
+   DECREASE_QUALITY,
+   INCREASE_QUALITY,
+   REMOVE_FROM_CART,
+} from "./cart.type";
 
 interface IAddToCart {
    id: number;
@@ -18,5 +24,15 @@ export const addToCart = (payload: IAddToCart) => ({
 
 export const removeFromCart = (payload: number) => ({
    type: REMOVE_FROM_CART,
+   payload,
+});
+
+export const increaseQuality = (payload: number) => ({
+   type: INCREASE_QUALITY,
+   payload,
+});
+
+export const decreaseQuality = (payload: number) => ({
+   type: DECREASE_QUALITY,
    payload,
 });
