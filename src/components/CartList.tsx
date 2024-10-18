@@ -57,7 +57,7 @@ const CartList = () => {
                   className="cart-item"
                >
                   <span>
-                     {item.name} - {item.price.toLocaleString()} VND
+                     {item.title} - {item.price.toLocaleString()} VND
                   </span>
 
                   <div className="quantity-controls">

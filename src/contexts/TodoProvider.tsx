@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { setTodo, setTodoLoading } from "../store/todo/todo.action";
 import { SET_TODO, SET_TODO_LOADING } from "../store/todo/todo.type";
+import { fetchApi } from "../utils/helper";
 
 interface ITodoProvider {
    children: React.ReactNode;
@@ -68,42 +69,7 @@ const TodoProvider = (props: ITodoProvider) => {
 
    useEffect(() => {
       /** Mounting */
-      const fetchApi = async () => {
-         try {
-            /** Cách 2 loading */
-            const objectLoading = {
-               type: SET_TODO_LOADING,
-               payload: true,
-            };
-            dispatch(objectLoading);
-
-            const url = title
-               ? `/todos?title=${title}`
-               : `/todos?_page=${page}&_limit=${limit}`;
-
-            const response: any = await axiosInstance.get(url);
-
-            /** Cách 1 */
-            // dispatch(setTodo(response));
-
-            /** Cách 2 */
-            const object = {
-               type: SET_TODO,
-               payload: response,
-            };
-            dispatch(object);
-            /** ================= */
-
-            /** Cách 1 loading */
-            dispatch(setTodoLoading(false));
-         } catch (error) {
-            dispatch(setTodo([]));
-            /** Cách 1 loading */
-            dispatch(setTodoLoading(false));
-         }
-      };
-
-      fetchApi();
+      dispatch(fetchApi(title, page, limit));
    }, [page, limit, title, dispatch]);
 
    const onPageChange = (newPage: number) => {};

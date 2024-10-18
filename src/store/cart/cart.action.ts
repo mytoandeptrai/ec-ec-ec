@@ -1,14 +1,17 @@
+import { ICartItems } from "./cart.reducer";
 import {
    ADD_TO_CART,
    CHANGE_STATUS,
    DECREASE_QUALITY,
    INCREASE_QUALITY,
    REMOVE_FROM_CART,
+   SET_LOADING,
+   SET_PRODUCTS,
 } from "./cart.type";
 
 interface IAddToCart {
    id: number;
-   name: string;
+   title: string;
    price: number;
 }
 
@@ -34,5 +37,15 @@ export const increaseQuality = (payload: number) => ({
 
 export const decreaseQuality = (payload: number) => ({
    type: DECREASE_QUALITY,
+   payload,
+});
+
+export const setProducts = (payload: ICartItems[]) => ({
+   type: SET_PRODUCTS,
+   payload,
+});
+
+export const setIsLoadingProduct = (payload: boolean) => ({
+   type: SET_LOADING,
    payload,
 });

@@ -4,11 +4,13 @@ import {
    DECREASE_QUALITY,
    INCREASE_QUALITY,
    REMOVE_FROM_CART,
+   SET_LOADING,
+   SET_PRODUCTS,
 } from "./cart.type";
 
 export interface ICartItems {
    id: number;
-   name: string;
+   title: string;
    price: number;
    quality: number;
 }
@@ -16,15 +18,30 @@ export interface ICartItems {
 interface IInitialState {
    cartItems: ICartItems[];
    isLoggedIn: boolean;
+   products: ICartItems[];
+   isLoadingProduct: boolean;
 }
 
 const initialState: IInitialState = {
    cartItems: [],
    isLoggedIn: false,
+   products: [],
+   isLoadingProduct: false,
 };
 
 export const cartReducer = (state = initialState, action: any) => {
    switch (action.type) {
+      case SET_PRODUCTS:
+         return {
+            ...state,
+            products: action.payload,
+            isLoadingProduct: false,
+         };
+      case SET_LOADING:
+         return {
+            ...state,
+            isLoadingProduct: action.payload,
+         };
       case ADD_TO_CART:
          const cloneCartItems = [...state.cartItems];
 
