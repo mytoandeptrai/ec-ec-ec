@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { increase } from "../store/counter/counter.action";
-import { DECREASE_COUNTER } from "../store/counter/counter.type";
+import { RootState } from "../store-toolkit/store";
+import { decrease, increase } from "../store-toolkit/slices/counterSlice";
+import { fetchCartProductsAPI } from "../store-toolkit/slices/cartSlice";
 
 /** Lấy giá trị trong redux: Sử dụng hook tên là useSelector(callback)
  *  trong đó : callback là một hàm nhận vào state và trả ra giá trị reducer của mình
@@ -24,17 +24,11 @@ const Counter = () => {
    });
 
    const onIncrease = () => {
-      /** Cách 1: */
-      dispatch(increase(5));
+      dispatch(increase(20));
    };
 
    const onDecrease = () => {
-      /** Cách 2: */
-      const object = {
-         type: DECREASE_COUNTER,
-         payload: 5,
-      };
-      dispatch(object);
+      dispatch(decrease(1));
    };
 
    return (

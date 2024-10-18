@@ -1,11 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
-import axios from "axios";
-import { axiosInstance } from "../api/axiosClient";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { setTodo, setTodoLoading } from "../store/todo/todo.action";
-import { SET_TODO, SET_TODO_LOADING } from "../store/todo/todo.type";
-import { fetchApi } from "../utils/helper";
+import React, { createContext } from "react";
 
 interface ITodoProvider {
    children: React.ReactNode;
@@ -59,18 +52,18 @@ const TodoProvider = (props: ITodoProvider) => {
    // });
 
    /** Cách 2: Lấy reducer và sử dụng destructuring */
-   const todoState = useSelector((state: RootState) => {
-      return state.todoState;
-   });
+   // const todoState = useSelector((state: RootState) => {
+   //    return state.todoState;
+   // });
 
-   const { title, limit, page } = todoState;
+   // const { title, limit, page } = todoState;
 
-   const dispatch = useDispatch();
+   // const dispatch = useDispatch();
 
-   useEffect(() => {
-      /** Mounting */
-      dispatch(fetchApi(title, page, limit));
-   }, [page, limit, title, dispatch]);
+   // useEffect(() => {
+   //    /** Mounting */
+   //    dispatch(fetchApi(title, page, limit));
+   // }, [page, limit, title, dispatch]);
 
    const onPageChange = (newPage: number) => {};
 

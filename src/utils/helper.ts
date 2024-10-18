@@ -5,7 +5,6 @@
 import { axiosInstance } from "../api/axiosClient";
 import { setIsLoadingProduct, setProducts } from "../store/cart/cart.action";
 import { SET_LOADING } from "../store/cart/cart.type";
-import { AppThunkDispatch } from "../store/store";
 import { setTodo, setTodoLoading } from "../store/todo/todo.action";
 import { SET_TODO, SET_TODO_LOADING } from "../store/todo/todo.type";
 
@@ -20,7 +19,7 @@ import { SET_TODO, SET_TODO_LOADING } from "../store/todo/todo.type";
 // exampleThu2("Huy", 10);
 
 export const fetchApi = (title: string, page: number, limit: number) => {
-   return async (dispatch: AppThunkDispatch) => {
+   return async (dispatch: any) => {
       try {
          /** Cách 2 loading */
          //  const objectLoading = {
@@ -57,7 +56,7 @@ export const fetchApi = (title: string, page: number, limit: number) => {
 };
 
 export const fetchProductAPI = () => {
-   return async (dispatch: AppThunkDispatch) => {
+   return async (dispatch: any) => {
       try {
          dispatch({
             type: SET_LOADING,

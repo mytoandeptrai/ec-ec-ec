@@ -1,14 +1,10 @@
 import "./App.css";
 
+import { useState } from "react";
 import "./App-test.css";
-import { useState, useEffect } from "react";
-import HelloWord from "./components/HelloWord";
-import TodoList from "./components/TodoList";
-import SignInWithState from "./components/SignInWithState";
-import SignInWithFormik from "./components/SignInWithFormik";
 import Counter from "./components/Counter";
-import Name from "./components/Name";
 import Ecommerce from "./components/Ecommerce";
+import TodoList from "./components/TodoList";
 
 function App() {
    const [example, setExample] = useState("hello word!");
@@ -58,14 +54,13 @@ function App() {
 
    return (
       <div>
-         <Name />
+         {/* <Name /> */}
+         <TodoList />
          <Ecommerce />
-         {/* <Counter /> */}
          {/* <div style={{ display: "flex", gap: "10px" }}>
             <SignInWithState />
             <SignInWithFormik />
          </div> */}
-         {/* <TodoList /> */}
          {/* {isFlag && <p>{example}</p>}
 
          <button onClick={() => setIsFlag(!isFlag)}>Toggle</button>

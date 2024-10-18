@@ -1,12 +1,11 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { ICartItems } from "../store/cart/cart.reducer";
+import { RootState } from "../store-toolkit/store";
 import {
    decreaseQuality,
    increaseQuality,
-   removeFromCart,
-} from "../store/cart/cart.action";
-import { ICartItems } from "../store/cart/cart.reducer";
+   removedFromCart,
+} from "../store-toolkit/slices/cartSlice";
 
 const total = (cartItems: ICartItems[]) => {
    /** Cách dùng vòng for */
@@ -36,7 +35,7 @@ const CartList = () => {
    });
 
    const onRemoveCart = (id: number) => {
-      dispatch(removeFromCart(id));
+      dispatch(removedFromCart(id));
    };
 
    const onIncreaseCart = (id: number) => {

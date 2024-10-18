@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import TodoProvider from "./contexts/TodoProvider";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { store } from "./store-toolkit/store";
 
 const root = ReactDOM.createRoot(
    document.getElementById("root") as HTMLElement

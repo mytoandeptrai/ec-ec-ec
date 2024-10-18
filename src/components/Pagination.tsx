@@ -1,58 +1,31 @@
-import React, { useContext } from "react";
-import { TodoContext } from "../contexts/TodoProvider";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { SET_TODO_LIMIT, SET_TODO_PAGE } from "../store/todo/todo.type";
+import { RootState } from "../store-toolkit/store";
+import { setLimit, setPage } from "../store-toolkit/slices/todoSlice";
 
 const Pagination = () => {
-   // const todoContext = useContext(TodoContext);
-   // const { page, onPageChange, onLimitChange, limit } = todoContext;
-   const page = useSelector((state: RootState) => {
-      return state.todoState.page;
-   });
-   const limit = useSelector((state: RootState) => {
-      return state.todoState.limit;
-   });
-
+   const page = useSelector((state: RootState) => state.todoState.page);
+   const limit = useSelector((state: RootState) => state.todoState.limit);
    const dispatch = useDispatch();
 
    const onNext = () => {
       const newPage = page + 1;
-      // onPageChange(newPage);
-
-      const object = {
-         type: SET_TODO_PAGE,
-         payload: newPage,
-      };
-      dispatch(object);
+      dispatch(setPage(newPage));
    };
 
    const onPrev = () => {
       const newPage = page - 1;
       if (newPage <= 0) return;
-      // onPageChange(newPage);
-
-      const object = {
-         type: SET_TODO_PAGE,
-         payload: newPage,
-      };
-      dispatch(object);
+      dispatch(setPage(newPage));
    };
 
    const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const value = event.target.value;
-      // onLimitChange(Number(value));
-
-      const object = {
-         type: SET_TODO_LIMIT,
-         payload: Number(value),
-      };
-
-      dispatch(object);
+      dispatch(setLimit(Number(value)));
    };
 
    return (
-      <div>
+      <div className="pagination-container">
          <select
             value={limit}
             onChange={onSelectChange}
@@ -64,17 +37,12 @@ const Pagination = () => {
          </select>
 
          <button
-            style={{ marginLeft: "10px" }}
             onClick={onPrev}
+            disabled={page === 1} // Disable prev button if on the first page
          >
             Prev
          </button>
-         <button
-            onClick={onNext}
-            style={{ marginLeft: "10px" }}
-         >
-            Next
-         </button>
+         <button onClick={onNext}>Next</button>
       </div>
    );
 };

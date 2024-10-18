@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { TodoContext } from "../contexts/TodoProvider";
 import { useDispatch } from "react-redux";
 import { SET_TODO_TITLE } from "../store/todo/todo.type";
+import { setTitle } from "../store-toolkit/slices/todoSlice";
 
 const TodoForm = () => {
    // const todoContext = useContext(TodoContext);
@@ -16,13 +17,7 @@ const TodoForm = () => {
    const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
       e.preventDefault();
       // onGetDataFromChild(inputValue);
-
-      const object = {
-         type: SET_TODO_TITLE,
-         payload: inputValue,
-      };
-
-      dispatch(object);
+      dispatch(setTitle(inputValue));
    };
 
    return (

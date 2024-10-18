@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../store/cart/cart.action";
-import { RootState } from "../store/store";
-import { fetchProductAPI } from "../utils/helper";
+import { RootState } from "../store-toolkit/store";
+import { useEffect, useState } from "react";
+import {
+   addToCart,
+   fetchCartProductsAPI,
+} from "../store-toolkit/slices/cartSlice";
 
 interface Dimensions {
    width: number;
@@ -25,7 +27,7 @@ interface MetaData {
    qrCode: string;
 }
 
-interface IProduct {
+export interface IProduct {
    id: number;
    title: string;
    description: string;
@@ -61,7 +63,7 @@ const ProductList = () => {
 
    // State quản lý phân trang
    const [currentPage, setCurrentPage] = useState(1);
-   const productsPerPage = 2; // Số sản phẩm mỗi trang
+   const productsPerPage = 5; // Số sản phẩm mỗi trang
 
    // Tính toán để phân trang
    const indexOfLastProduct = currentPage * productsPerPage;
@@ -85,7 +87,7 @@ const ProductList = () => {
    };
 
    useEffect(() => {
-      dispatch(fetchProductAPI());
+      dispatch(fetchCartProductsAPI());
    }, [dispatch]);
 
    return (

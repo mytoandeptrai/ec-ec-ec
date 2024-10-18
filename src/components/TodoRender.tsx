@@ -1,26 +1,16 @@
-import { useContext } from "react";
-import { ITodo, TodoContext } from "../contexts/TodoProvider";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState } from "../store-toolkit/store";
 
 const TodoRender = () => {
-   // const todoContext = useContext(TodoContext);
-   // const { isLoading, todoList } = todoContext;
-
-   const todoList: ITodo[] = useSelector((state: RootState) => {
-      return state.todoState.todoList;
-   });
-
-   const isLoading = useSelector((state: RootState) => {
-      return state.todoState.loading;
-   });
+   const todoList = useSelector((state: RootState) => state.todoState.todoList);
+   const isLoading = useSelector((state: RootState) => state.todoState.loading);
 
    if (isLoading) {
-      return <p>Loading....</p>;
+      return <p className="loading-text">Loading....</p>;
    }
 
    return (
-      <ul>
+      <ul className="todo-list">
          {todoList.length > 0 &&
             todoList.map((todo) => <li key={todo.id}>{todo.title}</li>)}
       </ul>
