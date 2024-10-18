@@ -6,16 +6,19 @@ import reportWebVitals from "./reportWebVitals";
 import TodoProvider from "./contexts/TodoProvider";
 import { Provider } from "react-redux";
 import { store } from "./store-toolkit/store";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
    document.getElementById("root") as HTMLElement
 );
 root.render(
-   <Provider store={store}>
-      <TodoProvider>
-         <App />
-      </TodoProvider>
-   </Provider>
+   <BrowserRouter>
+      <Provider store={store}>
+         <TodoProvider>
+            <App />
+         </TodoProvider>
+      </Provider>
+   </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

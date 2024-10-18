@@ -5,6 +5,7 @@ import "./App-test.css";
 import Counter from "./components/Counter";
 import Ecommerce from "./components/Ecommerce";
 import TodoList from "./components/TodoList";
+import RouteMainApp from "./routes/RouteMainApp";
 
 function App() {
    const [example, setExample] = useState("hello word!");
@@ -54,19 +55,7 @@ function App() {
 
    return (
       <div>
-         {/* <Name /> */}
-         <TodoList />
-         <Ecommerce />
-         {/* <div style={{ display: "flex", gap: "10px" }}>
-            <SignInWithState />
-            <SignInWithFormik />
-         </div> */}
-         {/* {isFlag && <p>{example}</p>}
-
-         <button onClick={() => setIsFlag(!isFlag)}>Toggle</button>
-         <button onClick={() => setExample(`hello world! ${Math.random()}`)}>
-            Click
-         </button> */}
+         <RouteMainApp />
       </div>
    );
 }
