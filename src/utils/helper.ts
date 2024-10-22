@@ -2,6 +2,7 @@
  *  Bản chất nó là 1 cái hàm trả về 1 cái hàm trong đó có sẵn dispatch
  */
 
+import { useState } from "react";
 import { axiosInstance } from "../api/axiosClient";
 import { setIsLoadingProduct, setProducts } from "../store/cart/cart.action";
 import { SET_LOADING } from "../store/cart/cart.type";
