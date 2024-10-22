@@ -1,9 +1,64 @@
 // HomePage.js
-import React from "react";
+import { useCallback, useMemo, useState } from "react";
+import ChildComponent from "../components/ChildComponent";
+
+/**
+ * memo: được sử dụng để ngăn chặn việc re-render ở component con khi component cha bị re-render
+ * Cách dùng : memo(Gắn component của mình vào đây)
+ *
+ * useMemo: sử dụng để ngăn chặn việc re-render ở component con
+ * khi chúng ta truyền xuống là một object hoặc array.
+ * Cách dùng: mình sẽ tạo biến và gán nó bằng useMemo
+ * Trong useMemo cú pháp nó sẽ là:
+ * useMemo(callback, dependencies)
+ *
+ * => callback: sẽ là hàm thực thi
+ * => dependencies: Giống như bên useEffect, khi nào dependency thay
+ * đổi thì useMemo mới được tính toán lại
+ *
+ * useCallback: sử dụng để ngăn chặn việc re-render ở component con
+ * khi chúng ta truyền xuống là một object hoặc array.
+ * Cách dùng: mình sẽ tạo biến và gán nó bằng useCallback
+ * Trong useCallback cú pháp nó sẽ là:
+ * useCallback(callback, dependencies)
+ *
+ * => callback: sẽ là hàm thực thi
+ * => dependencies: Giống như bên useEffect, khi nào dependency thay
+ * đổi thì useCallback mới được tính toán lại
+ *
+ * Luư ý:
+ * + useMemo sử dụng để ghi nhớ kết quả trả về của 1 hàm => hàm có return thì mình mới dùng
+ * + useCallback sử dụng để ghi nhớ 1 hàm => hàm ko return
+ * + memo: sử dụng để bọc component lại tránh re-render. Phải kết hợp 3 cái useCallback, useMemo và memo mới có hiệu quả
+ * => Có nghĩa là khi nào dùng memo thì parent component phải dùng useMemo và useCallback
+ * 
+ * Khi mà component phức tạp như là vẽ chart, animation => mình mới dùng 3 cái này, còn ko thì thôi
+ * 
+ */
 
 const HomePage = () => {
+   const [count, setCount] = useState(0);
+   const [isShow, setIsShow] = useState(false);
+
+   const onClick = () => {
+      setCount(count + 1);
+   };
+
+   const value = useMemo(() => {
+      return [];
+   }, []);
+
+   const handleToggle = useCallback(() => {}, []);
+
    return (
       <div className="home-page">
+         <button onClick={onClick}>Click</button>
+         <button onClick={() => setIsShow(!isShow)}>Toggle</button>
+         <ChildComponent
+            count={count}
+            value={value}
+            handleToggle={handleToggle}
+         />
          <div className="home-banner">
             <h1>Welcome to Our Shop</h1>
             <p>Find the best products here!</p>

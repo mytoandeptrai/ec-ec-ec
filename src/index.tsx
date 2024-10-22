@@ -7,6 +7,7 @@ import TodoProvider from "./contexts/TodoProvider";
 import { Provider } from "react-redux";
 import { store } from "./store-toolkit/store";
 import { BrowserRouter } from "react-router-dom";
+import ExampleProvider from "./contexts/ExampleProvider";
 
 const root = ReactDOM.createRoot(
    document.getElementById("root") as HTMLElement
@@ -15,7 +16,9 @@ root.render(
    <BrowserRouter>
       <Provider store={store}>
          <TodoProvider>
-            <App />
+            <ExampleProvider>
+               <App />
+            </ExampleProvider>
          </TodoProvider>
       </Provider>
    </BrowserRouter>

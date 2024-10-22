@@ -1,8 +1,10 @@
 // NotFoundPage.js
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useLoggedIn } from "../hooks/useLoggedIn";
 
 const NotFoundPage = () => {
+   const { isLoggedIn, onChangeIsLoggedIn } = useLoggedIn();
    return (
       <div className="not-found-container">
          <h1>404</h1>
