@@ -1,16 +1,180 @@
 // RegisterPage.js
 import React from "react";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import {
+   Paper,
+   Table,
+   TableBody,
+   TableCell,
+   TableContainer,
+   TableHead,
+   TableRow,
+} from "@mui/material";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
+function createData(
+   name: string,
+   calories: number,
+   fat: number,
+   carbs: number,
+   protein: number
+) {
+   return { name, calories, fat, carbs, protein };
+}
+
+const rows = [
+   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+   createData("Eclair", 262, 16.0, 24, 6.0),
+   createData("Cupcake", 305, 3.7, 67, 4.3),
+   createData("Gingerbread", 356, 16.0, 49, 3.9),
+   createData("Toàn", 356, 16.0, 49, 3.9),
+];
 
 const RegisterPage = () => {
+   const [age, setAge] = React.useState("");
+
+   const handleChange = (event: SelectChangeEvent) => {
+      setAge(event.target.value as string);
+   };
+
+   const [open, setOpen] = React.useState(false);
+
+   const handleClickOpen = () => {
+      setOpen(true);
+   };
+
+   const handleClose = () => {
+      setOpen(false);
+   };
+
    return (
       <div className="register-page">
          <h1>Register</h1>
-         <form className="register-form">
-            <input type="text" placeholder="Username" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+         <form>
+            <TextField
+               className="input"
+               required
+               id="outlined-required"
+               label="Username"
+               placeholder="Enter username"
+            />
+            <TextField
+               className="input"
+               id="outlined-required"
+               label="Email"
+               type="email"
+               placeholder="Enter your email"
+            />
+            <TextField
+               className="input"
+               id="outlined-password-input"
+               label="Password"
+               type="password"
+               autoComplete="current-password"
+            />
+            <FormControl
+               fullWidth
+               sx={{ marginBottom: "20px" }}
+            >
+               <InputLabel id="demo-simple-select-label">Age</InputLabel>
+               <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={age}
+                  label="Age"
+                  onChange={handleChange}
+               >
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+               </Select>
+            </FormControl>
             <button type="submit">Register</button>
          </form>
+
+         <TableContainer component={Paper}>
+            <Table
+               sx={{ minWidth: 650 }}
+               aria-label="simple table"
+            >
+               <TableHead>
+                  <TableRow>
+                     <TableCell>Dessert (100g serving)</TableCell>
+                     <TableCell align="right">Calories</TableCell>
+                     <TableCell align="right">Fat&nbsp;(g)</TableCell>
+                     <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+                     <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                  </TableRow>
+               </TableHead>
+               <TableBody>
+                  {rows.map((row) => (
+                     <TableRow
+                        key={row.name}
+                        sx={{
+                           "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                     >
+                        <TableCell
+                           component="th"
+                           scope="row"
+                        >
+                           {row.name}
+                        </TableCell>
+                        <TableCell align="right">{row.calories}</TableCell>
+                        <TableCell align="right">{row.fat}</TableCell>
+                        <TableCell align="right">{row.carbs}</TableCell>
+                        <TableCell align="right">{row.protein}</TableCell>
+                     </TableRow>
+                  ))}
+               </TableBody>
+            </Table>
+         </TableContainer>
+
+         <React.Fragment>
+            <Button
+               variant="outlined"
+               onClick={handleClickOpen}
+            >
+               Open alert dialog
+            </Button>
+            <Dialog
+               open={open}
+               onClose={handleClose}
+               aria-labelledby="alert-dialog-title"
+               aria-describedby="alert-dialog-description"
+            >
+               <DialogTitle id="alert-dialog-title">
+                  {"Use Google's location service?"}
+               </DialogTitle>
+               <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                     Let Google help apps determine location. This means sending
+                     anonymous location data to Google, even when no apps are
+                     running.
+                  </DialogContentText>
+               </DialogContent>
+               <DialogActions>
+                  <Button onClick={handleClose}>Disagree</Button>
+                  <Button
+                     onClick={handleClose}
+                     autoFocus
+                  >
+                     Agree
+                  </Button>
+               </DialogActions>
+            </Dialog>
+         </React.Fragment>
       </div>
    );
 };
