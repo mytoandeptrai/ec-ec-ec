@@ -1,6 +1,7 @@
 // ProductPage.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import WithAuth from "../hocs/WithAuth";
 
 const ProductPage = () => {
    /** Hook này dùng để chuyển trang mà ko dùng thẻ link */
@@ -58,4 +59,4 @@ const ProductPage = () => {
    );
 };
 
-export default ProductPage;
+export default WithAuth(ProductPage);

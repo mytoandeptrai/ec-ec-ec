@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
  * xử lý chỗ này:
  * Kiểm tra nếu như là user thì mình mới cho vào trang , còn ko thì mình sẽ chuyển sang trang nào đó bất kì
  */
-const WithAuth = <P extends object>(
+const WithAuthAdmin = <P extends object>(
    Component: React.ComponentType<P>
 ): React.FC<P> => {
    return (props: P) => {
@@ -13,13 +13,20 @@ const WithAuth = <P extends object>(
       const user = localStorage.getItem("user");
       const parsedUser = user ? JSON.parse(user) : null;
 
-      /** Kiểm tra nếu như ko có user trong localStorage thì mình sẽ chuyển hướng về lại trang register */
-      if (!parsedUser) {
-         return <Navigate to="/register" />;
+      /**
+       * Thứ 1:Kiểm tra user có nằm trong trong localStorage
+       * Thứ 2:Kiểm tra xem user đó nếu có thì cái role của nó có phải là admin hay ko,
+       * Rơi vào 1 trong 2 điều kiện trên thì chuyển về trang hom
+       */
+
+      const noUser = !parsedUser;
+      const hasUserButNotAdmin = parsedUser && parsedUser.isAdmin === false;
+      if (noUser || hasUserButNotAdmin) {
+         return <Navigate to="/" />;
       }
 
       return <Component {...props} />;
    };
 };
 
-export default WithAuth;
+export default WithAuthAdmin;

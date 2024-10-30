@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import { useLoggedIn } from "../hooks/useLoggedIn";
-
-
+import WithAuthAdmin from "../hocs/WithAuthAdmin";
 
 const DashboardPage = () => {
    return (
@@ -25,4 +22,4 @@ const DashboardPage = () => {
    );
 };
 
-export default DashboardPage;
+export default WithAuthAdmin(DashboardPage);
